@@ -1,19 +1,23 @@
 package com.hanghae.sleekspeedy.domain.user.controller;
 
+import com.hanghae.sleekspeedy.domain.basketProduct.dto.BasketProductResponse;
 import com.hanghae.sleekspeedy.domain.user.dto.MailAuthDto;
 import com.hanghae.sleekspeedy.domain.user.dto.MailRequestDto;
 import com.hanghae.sleekspeedy.domain.user.dto.SignupRequestDto;
+import com.hanghae.sleekspeedy.domain.user.entity.User;
 import com.hanghae.sleekspeedy.domain.user.service.MailService;
 import com.hanghae.sleekspeedy.domain.user.service.UserService;
 import com.hanghae.sleekspeedy.global.response.ResponseDto;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,5 +71,10 @@ public class UserController {
     userService.signup(requestDto);
 
     return ResponseEntity.ok().body(ResponseDto.success(200));
+  }
+
+  @GetMapping("/users/myBasketProducts")
+  public List<BasketProductResponse> getMyBasketProducts(User user) {
+    return userService.getMyBasketProducts(user);
   }
 }

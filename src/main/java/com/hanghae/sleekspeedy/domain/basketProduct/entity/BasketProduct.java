@@ -1,6 +1,8 @@
-package com.hanghae.sleekspeedy.domain.product.entity;
+package com.hanghae.sleekspeedy.domain.basketProduct.entity;
 
 import com.hanghae.sleekspeedy.domain.basket.entity.Basket;
+import com.hanghae.sleekspeedy.domain.product.entity.Product;
+import com.hanghae.sleekspeedy.domain.user.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,5 +34,10 @@ public class BasketProduct {
   private Product product;
 
   @Column(nullable = false)
-  private int count;
+  private int count = 1;
+
+  public BasketProduct(User user, Product product) {
+    this.basket = user.getBasket();
+    this.product = product;
+  }
 }
