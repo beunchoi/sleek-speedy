@@ -1,6 +1,5 @@
-package com.hanghae.sleekspeedy.domain.basketProduct.entity;
+package com.hanghae.sleekspeedy.domain.basket.entity;
 
-import com.hanghae.sleekspeedy.domain.basket.entity.Basket;
 import com.hanghae.sleekspeedy.domain.product.entity.Product;
 import com.hanghae.sleekspeedy.domain.user.entity.User;
 import jakarta.persistence.Column;

@@ -1,7 +1,7 @@
-package com.hanghae.sleekspeedy.domain.basketProduct.dto;
+package com.hanghae.sleekspeedy.domain.basket.dto;
 
 import com.hanghae.sleekspeedy.domain.basket.entity.Basket;
-import com.hanghae.sleekspeedy.domain.basketProduct.entity.BasketProduct;
+import com.hanghae.sleekspeedy.domain.basket.entity.BasketProduct;
 import com.hanghae.sleekspeedy.domain.product.entity.Product;
 import lombok.Getter;
 

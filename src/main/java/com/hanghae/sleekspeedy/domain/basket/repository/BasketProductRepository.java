@@ -1,6 +1,6 @@
-package com.hanghae.sleekspeedy.domain.basketProduct.repository;
+package com.hanghae.sleekspeedy.domain.basket.repository;
 
-import com.hanghae.sleekspeedy.domain.basketProduct.entity.BasketProduct;
+import com.hanghae.sleekspeedy.domain.basket.entity.BasketProduct;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
