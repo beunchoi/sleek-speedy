@@ -4,6 +4,8 @@ import com.hanghae.sleekspeedy.domain.basket.entity.Basket;
 import com.hanghae.sleekspeedy.domain.user.dto.SignupRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,14 +42,19 @@ public class User {
   @Column(nullable = false)
   private String profile = "자기소개 해주세요";
 
+  @Column(nullable = false)
+  @Enumerated(value = EnumType.STRING)
+  private UserRoleEnum role;
+
   @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
   private Basket basket;
 
-  public User(SignupRequestDto request, String password) {
+  public User(SignupRequestDto request, String password, UserRoleEnum role) {
     this.username = request.getUsername();
     this.password = password;
     this.email = request.getEmail();
     this.phoneNum = request.getPhoneNum();
     this.address = request.getAddress();
+    this.role = role;
   }
 }
