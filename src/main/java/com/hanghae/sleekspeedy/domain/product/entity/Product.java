@@ -1,5 +1,6 @@
 package com.hanghae.sleekspeedy.domain.product.entity;
 
+import com.hanghae.sleekspeedy.domain.product.dto.ProductRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,4 +31,15 @@ public class Product {
 
   @Column(nullable = false)
   private String category;
+
+  @Column(nullable = false)
+  private String description;
+
+  public Product(ProductRequestDto requestDto) {
+    this.title = requestDto.getTitle();
+    this.image = requestDto.getImage();
+    this.price = requestDto.getPrice();
+    this.category = requestDto.getCategory();
+    this.description = requestDto.getDescription();
+  }
 }
