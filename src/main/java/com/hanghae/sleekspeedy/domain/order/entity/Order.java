@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "order")
+@Table(name = "orders")
 @NoArgsConstructor
 public class Order {
 
@@ -25,4 +25,8 @@ public class Order {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
+
+  public Order(User user) {
+    this.user = user;
+  }
 }

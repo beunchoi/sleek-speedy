@@ -35,11 +35,18 @@ public class Product {
   @Column(nullable = false)
   private String description;
 
+  @Column(nullable = false)
+  private int stock;
+
   public Product(ProductRequestDto requestDto) {
     this.title = requestDto.getTitle();
     this.image = requestDto.getImage();
     this.price = requestDto.getPrice();
     this.category = requestDto.getCategory();
     this.description = requestDto.getDescription();
+  }
+
+  public void incrementStock() {
+    this.stock++;
   }
 }
