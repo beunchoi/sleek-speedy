@@ -1,10 +1,14 @@
 package com.hanghae.sleekspeedy.domain.user.entity;
 
+import com.hanghae.sleekspeedy.domain.basket.entity.Basket;
+import com.hanghae.sleekspeedy.domain.user.dto.SignupRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,5 +38,16 @@ public class User {
   private String address;
 
   @Column(nullable = false)
-  private String profile;
+  private String profile = "자기소개 해주세요";
+
+  @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+  private Basket basket;
+
+  public User(SignupRequestDto request, String password) {
+    this.username = request.getUsername();
+    this.password = password;
+    this.email = request.getEmail();
+    this.phoneNum = request.getPhoneNum();
+    this.address = request.getAddress();
+  }
 }
