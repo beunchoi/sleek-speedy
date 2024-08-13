@@ -1,10 +1,14 @@
 package com.hanghae.sleekspeedy.domain.user.service;
 
+import com.hanghae.sleekspeedy.global.config.RedisConfig;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import java.util.Objects;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,8 @@ import org.springframework.stereotype.Service;
 public class MailService {
 
   private final JavaMailSender javaMailSender;
+  private final RedisConfig redisConfig;
+
   @Value("${mail.username}")
   private String senderEmail;
 
@@ -30,6 +36,7 @@ public class MailService {
         case 2 -> key.append(random.nextInt(10));
       }
     }
+
     return key.toString();
   }
 
@@ -44,6 +51,10 @@ public class MailService {
     body += "<h1>" + number + "</h1>";
     body += "<h3>감사합니다.</h3>";
     message.setText(body, "UTF-8", "html");
+
+    // redis에 3분 동안 이메일과 인증 코드 저장
+    ValueOperations<String, String> valOperations = redisConfig.redisTemplate().opsForValue();
+    valOperations.set(mail, number, 180, TimeUnit.SECONDS);
 
     return message;
   }
@@ -60,5 +71,14 @@ public class MailService {
     }
 
     return number;
+  }
+
+  /* 인증번호 확인 */
+  public Boolean checkAuthNum(String mail, String authNum) {
+    ValueOperations<String, String> valOperations = redisConfig.redisTemplate().opsForValue();
+    String code = valOperations.get(mail);
+    if (Objects.equals(code, authNum)) {
+      return true;
+    } else return false;
   }
 }
